@@ -1,0 +1,97 @@
+🔬 ESP32 PIR Motion Detection – Project Demonstration
+🧾 1. Objective
+Build a simple motion detection system using:
+
+ESP32
+
+PIR Motion Sensor
+
+LED indicator
+
+When motion is detected:
+
+The LED turns ON
+
+The Serial Monitor prints “Motion detected!”
+
+🧰 2. Components Used
+Component	Quantity	Description
+ESP32 DevKit v4	1	Microcontroller
+PIR Motion Sensor	1	Detects motion using infrared
+LED (Red)	1	Indicates when motion is detected
+Resistor (1kΩ)	1	Limits current to LED
+Breadboard + Wires	As needed	For connections
+
+🔌 3. Circuit Connections
+PIR Pin	Connects To
+VCC	ESP32 3V3
+GND	ESP32 GND
+OUT	ESP32 GPIO 13
+
+LED Pin	Connects To
+Anode	GPIO 2 (via resistor)
+Cathode	ESP32 GND
+
+💻 4. Code Explanation (pir_motion.ino)
+#define PIR_PIN 13  // Motion sensor connected to GPIO13
+#define LED_PIN 2   // LED connected to GPIO2
+
+void setup() {
+  pinMode(PIR_PIN, INPUT);
+  pinMode(LED_PIN, OUTPUT);
+  Serial.begin(115200);
+  Serial.println("PIR Sensor with ESP32 and LED - Wokwi Simulation");
+}
+
+void loop() {
+  int pirState = digitalRead(PIR_PIN);
+  if (pirState == HIGH) {
+    digitalWrite(LED_PIN, HIGH);
+    Serial.println("Motion detected!");
+  } else {
+    digitalWrite(LED_PIN, LOW);
+    Serial.println("No motion.");
+  }
+  delay(100);
+}
+🖥 5. Output Demonstration
+Situation	PIR Sensor Output	LED State	Serial Monitor Message
+No motion	LOW	OFF	No motion.
+Motion detected	HIGH	ON	Motion detected!
+
+📊 Sample Dataset: ESP32 PIR Motion Detection
+🔹 Project Name: ESP32 PIR Motion Detection System
+🔹 Date: May 2025
+🔹 Platform: ESP32 (Wokwi Simulation)
+📄 1. Description
+Feature	Description
+Microcontroller	ESP32 DevKit v4
+Sensor	PIR Motion Sensor
+Output Device	Red LED (via 1kΩ resistor)
+Functionality	Detects motion; turns on LED and prints to serial monitor
+Simulation Tool	Wokwi Online Simulator
+
+💾 2. Arduino Code Summary (pir_motion.ino)
+Variable	Type	Purpose
+PIR_PIN	int	GPIO 13 — input from PIR sensor
+LED_PIN	int	GPIO 2 — output to red LED
+pirState	int	Stores current PIR sensor state
+
+🔌 3. Wokwi Circuit Summary (diagram.json)
+Component	Pin Connections
+PIR Sensor VCC	→ ESP32 3V3
+PIR Sensor GND	→ ESP32 GND
+PIR OUT	→ ESP32 GPIO 13
+LED Anode (+)	→ Resistor → ESP32 GPIO 2
+LED Cathode (–)	→ ESP32 GND
+Resistor	1kΩ (connected in series with LED)
+
+📋 4. Sample Output (from Serial Monitor)
+Time (s)	Motion Detected	LED Status	Serial Output
+0.1	No	OFF	No motion.
+2.5	Yes	ON	Motion detected!
+5.0	No	OFF	No motion.
+7.8	Yes	ON	Motion detected!
+
+✅ 5. Summary
+This sample dataset captures how a basic IoT project using a PIR sensor and ESP32 works.

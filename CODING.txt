@@ -1,0 +1,86 @@
+CODING AND ITS SCREENSORT HERE:-
+
+CODING:- 1 
+
+
+#define PIR_PIN 13    // PIR sensor output pin
+#define LED_PIN 2     // LED pin
+
+void setup() {
+  pinMode(PIR_PIN, INPUT);     // Set PIR sensor pin as input
+  pinMode(LED_PIN, OUTPUT);    // Set LED pin as output
+  Serial.begin(115200);        // Initialize serial monitor
+  Serial.println("PIR Sensor with ESP32 and LED - Wokwi Simulation");
+}
+
+void loop() {
+  int pirState = digitalRead(PIR_PIN);  // Read PIR sensor state
+
+  if (pirState == HIGH) {
+    digitalWrite(LED_PIN, HIGH);        // Turn on LED
+    Serial.println("Motion detected!");
+  } else {
+    digitalWrite(LED_PIN, LOW);         // Turn off LED
+    Serial.println("No motion.");
+  }
+
+  delay(100);  // Small delay to avoid rapid state changes
+}
+
+
+
+CODING:- 2
+
+
+{
+  "version": 1,
+  "author": "Tharun Eswar",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": 0,
+      "left": 0,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-pir-motion-sensor",
+      "id": "pir1",
+      "top": 32.8,
+      "left": -141.78,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": 63.6,
+      "left": 225,
+      "attrs": {
+        "color": "red",
+        "flip": "1"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 157.55,
+      "left": 153.6,
+      "attrs": {
+        "value": "1000"
+      }
+    }
+  ],
+  "connections": [
+    ["esp:TX", "$serialMonitor:RX", ""],
+    ["esp:RX", "$serialMonitor:TX", ""],
+    ["pir1:VCC", "esp:3V3", "red", ["v19.2", "h86.4", "v-153.6", "h9.6"]],
+    ["esp:13", "pir1:OUT", "green", ["h0"]],
+    ["pir1:GND", "esp:GND.1", "black", ["v0"]],
+    ["r1:1", "esp:2", "green", ["v0"]],
+    ["led1:A", "r1:2", "green", ["v0"]],
+    ["led1:C", "esp:GND.3", "green", ["v57.6", "h38", "v-172.8", "h-172.8", "v96"]]
+  ],
+  "dependencies": {}
+}
+
